@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pokedex | <%= content.name %>
+    </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/home.css" />
+</head>
+
+<body class="<%-`bg-${content.color}-700`%>">
+    <!-- bg gradient -->
+    <div class="fixed bg-gradient-to-l <%-`from-${content.color}-500`%> -left-12-p bottom-23-px -z-10 h-full max-h-52 w-full max-w-2xl rotate-126"></div>
+    <div class="fixed bg-gradient-to-l <%-`from-${content.color}-500`%> -left-10-p -bottom-6-p -z-10 h-full max-h-52 w-full max-w-2xl rotate-126"></div>
+    <!-- navbar -->
+    <nav class="w-full <%-`bg-${content.color}-500`%> py-2">
+        <div class="w-90-p m-auto flex justify-between">
+            <a class="text-base font-medium text-neutral-50 hover:text-sky-200 ease-in transition-colors duration-75" href="http://localhost:8080/">
+                <i class="fa-solid fa-chevron-left  mr-1"></i>
+                <span>Go back</span>
+            </a>
+            <h3 class="pokemon-logo text-base text-neutral-50">Pokedex</h3>
+        </div>
+    </nav>
+    <main class="h-inherit grid">
+        <!-- card wrapper-->
+        <section class="max-w-calc--24 mobileM:max-w-90-p sm:max-w-screen-lg sm:flex-row m-auto flex w-full flex-col justify-center">
+            <!-- pokemon-col-section -->
+            <div class="<%-`bg-${content.color}-500`%> sm:grid rounded-tr-3xl rounded-tl-3xl sm:min-w-50-p sm:rounded-br-3xl sm:rounded-bl-3xl ">
+                <!-- name & id section -->
+                <div class="my-4 flex items-center justify-between px-6">
+                    <h1 class="text-base font-medium text-neutral-50">
+                        <%- content.name %>
+                    </h1>
+                    <p class="text-base font-medium text-neutral-50">
+                        <% if (Number(content.id)>= 10 && Number(content.id) < 100) { %>
+                                No.0<%-content.id%>
+                                    <% } else if ( Number(content.id)>= 100 ) { %>
+                                        No.<%-content.id%>
+                                            <% } else { %> No.00<%-content.id%>
+                                                    <% }; %>
+                    </p>
+                </div>
+
+                <!-- img section -->
+                <div class="relative mb-6 flex w-full items-center justify-center">
+                    <div class="<%-`bg-${content.color}-600`%> h-40 w-40 sm:h-52 sm:w-52 rounded-full"></div>
+                    <img class="max-w-150 sm:max-w-200 absolute top-1/2 left-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2 object-cover" src="<%-content.url %>" alt="pokemon image" />
+                </div>
+                <!-- chips -->
+                <div class="w-full mb-4 flex justify-evenly items-center flex-wrap">
+                    <% for(let type in content.types){ %>
+                        <p class="rounded-full px-6 py-1 <%-`bg-${content.types[type]}-600`%> text-sm text-neutral-50">
+                            <%- type %>
+                        </p>
+                        <% }; %>
+                </div>
+
+            </div>
+            <!-- stats-col -->
+            <div class="w-full p-6 flex flex-col items-start justify-center bg-neutral-900 rounded-br-3xl rounded-bl-3xl  sm:rounded-tr-3xl sm:rounded-tl-3xl">
+                <!-- weight-height -->
+                <div class="w-full flex justify-between mb-6">
+                    <p class="text-base text-neutral-50">weight:
+                        <span class="pl-1 text-sm font-medium text-neutral-400">
+                            <%= content.weight %>kg
+                        </span>
+                    </p>
+                    <p class="text-base text-neutral-50">height:
+                        <span class="pl-1 text-sm font-medium text-neutral-400">
+                            <%= content.height %>cm
+                        </span>
+                    </p>
+                </div>
+                <!-- stats -->
+                <div class="w-full mb-6">
+                    <h2 class="text-lg text-neutral-50">Stats</h2>
+                    <% content.stats.forEach(el=> { %>
+                        <div class="mb-2">
+                            <div class="w-full flex justify-between items-center">
+                                <p class="text-sm font-medium text-neutral-400 capitalize mb-1">
+                                    <%- el.name %>
+                                </p>
+                                <p class="text-sm text-neutral-50">
+                                    <%= el.stat %>/255
+                                </p>
+                            </div>
+
+                            <div class="flex content-between items-center">
+                                <!-- stat-bar -->
+                                <% const statToPercentage=Math.floor(Number(el.stat) * 100 / 255) %>
+                                    <% if (Number(el.stat) <=50) { %>
+                                        <div class="w-full h-2 rounded-md bg-neutral-700">
+                                            <div class="bg-red-400 h-2 rounded-md" <%- `style=width:${statToPercentage}%` %> ></div>
+                                        </div>
+                                        <% } else if (Number(el.stat)> 50 && Number(el.stat) <= 80) { %>
+                                                <div class="w-full h-2 rounded-md bg-neutral-700">
+                                                    <div class="bg-yellow-400 h-2 rounded-md" <%- `style=width:${statToPercentage}%` %> ></div>
+                                                </div>
+                                                <% } else { %>
+                                                    <div class="w-full h-2 rounded-md bg-neutral-700">
+                                                        <div class="bg-emerald-400 h-2 rounded-md" <%- `style=width:${statToPercentage}%` %> ></div>
+                                                    </div>
+                                                    <% } %>
+                            </div>
+                        </div>
+                        <% }) %>
+                </div>
+
+                <!-- skills -->
+                <div class="w-full">
+                    <h2 class="text-lg text-neutral-50">Skills</h2>
+                    <ul class="grid grid-cols-2 list-disc w-full">
+                        <% content.abilities.forEach(el=> { %>
+                            <li class="text-neutral-50 text-sm ml-8">
+                                <%- el _%>
+                            </li>
+                            <% }) %>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+
+</html>

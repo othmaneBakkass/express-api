@@ -1,0 +1,116 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Pokemon Solid";
+  src: url("./fonts/Pokemon Solid.woff") format("woff");
+  font-style: normal;
+  font-weight: normal;
+}
+
+@layer base {
+  html,
+  body {
+    @apply h-full;
+  }
+
+  input:focus-visible {
+    outline: none;
+  }
+}
+
+@layer utilities {
+  .font_pokemon {
+    font-family: "Pokemon Solid";
+    -webkit-text-stroke-width: 3px;
+    -webkit-text-stroke-color: rgb(56 189 248 / 1);
+  }
+  .pokemon-logo {
+    font-family: "Pokemon Solid";
+  }
+
+  .grid-cols-auto {
+    grid-template-columns: repeat(auto-fit, minmax(256px, 295px));
+  }
+  .grid-content-center {
+    justify-content: center;
+  }
+  .grid-items-center {
+    align-items: center;
+  }
+  .h-600 {
+    height: 600px;
+  }
+  .h-75-vh {
+    height: 75vh;
+  }
+  .max-h-600 {
+    max-height: 600px;
+  }
+  .min-h-300 {
+    min-height: 300px;
+  }
+  .w-90-p {
+    width: 90%;
+  }
+  .max-w-80-p {
+    max-width: 80%;
+  }
+  .max-w-90-p {
+    max-width: 90%;
+  }
+  .max-w-calc--24 {
+    max-width: calc(100% - 24px);
+  }
+  .max-w-300 {
+    max-width: 300px;
+  }
+  .max-w-200 {
+    max-width: 200px;
+  }
+  .max-w-150 {
+    max-width: 150px;
+  }
+  .min-w-300 {
+    min-width: 300px;
+  }
+  .min-w-50-p {
+    min-width: 50%;
+  }
+  .-left-10-p {
+    left: -10%;
+  }
+  .-left-12-p {
+    left: -12%;
+  }
+  .-left-53-p {
+    left: -53%;
+  }
+  .bottom-23-px {
+    bottom: 23px;
+  }
+  .-bottom-6-p {
+    bottom: -6%;
+  }
+  .rotate-126 {
+    rotate: 126deg;
+  }
+  .h-inherit {
+    height: inherit;
+  }
+}
+
+@layer components {
+  .pokemon-container {
+    grid-template-rows: minmax(250px, 450px) 150px 1fr;
+  }
+  .pokemon-searchbar-title {
+    grid-row: 1/3;
+    grid-column: 1/2;
+  }
+  .pokemon-cards-wrapper {
+    grid-row: 2/3;
+    grid-column: 1/2;
+  }
+}
